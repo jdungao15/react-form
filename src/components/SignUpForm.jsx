@@ -5,6 +5,7 @@ const SignUpForm = ({ setToken }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [successSignUp, setSuccessSignUp] = useState(null);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -23,6 +24,7 @@ const SignUpForm = ({ setToken }) => {
         }
       );
       const result = await response.json();
+      setSuccessSignUp(result.message);
       setToken(result.token);
     } catch (err) {
       setError(err.message);
@@ -33,6 +35,7 @@ const SignUpForm = ({ setToken }) => {
     <div className="form-container">
       <h2 className="form-title">Sign Up</h2>
       {error && <p className="error-message">{error}</p>}
+      {successSignUp && <p className="success-message">{successSignUp}</p>}
       <form onSubmit={handleSubmit} className="form">
         <label className="form-label">
           Username:
